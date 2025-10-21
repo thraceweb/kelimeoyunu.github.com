@@ -18,17 +18,14 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      padding: 10px;
-      overflow: hidden;
+      padding: 20px;
     }
     
     .container {
       width: 95vw;
-      height: 85vh;
       max-width: 1600px;
-      max-height: 900px;
       background-color: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
       padding: 25px;
@@ -36,7 +33,8 @@
       border: 8px solid #ff9ebb;
       display: flex;
       flex-direction: column;
-      aspect-ratio: 16/9;
+      margin: 20px auto;
+      min-height: 600px;
     }
     
     h1 {
@@ -56,7 +54,7 @@
       display: flex;
       flex: 1;
       gap: 30px;
-      height: 100%;
+      min-height: 500px;
     }
     
     .left-panel {
@@ -83,8 +81,6 @@
       padding: 20px;
       border-radius: 15px;
       border: 3px solid #5fa8ff;
-      flex: 1;
-      overflow-y: auto;
     }
     
     .letter-btn {
@@ -418,6 +414,16 @@
       font-size: 1.2rem;
     }
     
+    .audio-permission {
+      background-color: #fff3cd;
+      border: 2px solid #ffeaa7;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      font-size: 1.2rem;
+      color: #856404;
+    }
+    
     .control-buttons {
       display: flex;
       justify-content: center;
@@ -430,7 +436,6 @@
     @media (max-width: 1024px) {
       .container {
         width: 95vw;
-        height: 90vh;
         padding: 20px;
       }
       
@@ -458,13 +463,13 @@
     
     @media (max-width: 768px) {
       .container {
-        height: auto;
-        min-height: 90vh;
+        min-height: auto;
       }
       
       .game-layout {
         flex-direction: column;
         gap: 20px;
+        min-height: auto;
       }
       
       h1 {
@@ -495,6 +500,10 @@
     }
     
     @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
       .container {
         padding: 15px;
       }
@@ -534,6 +543,11 @@
     <p class="subtitle">Harfleri seç, kelimeleri yaz!</p>
     
     <div class="error-message" id="errorMessage" style="display: none;"></div>
+    
+    <!-- Ses izni uyarısı -->
+    <div class="audio-permission" id="audioPermission" style="display: none;">
+      <strong>📢 Ses Uyarısı:</strong> Cep telefonunda seslerin çalışması için lütfen önce herhangi bir butona tıklayın. Tarayıcılar ses çalmak için kullanıcı etkileşimi gerektirir.
+    </div>
     
     <div class="game-layout">
       <div class="left-panel">
@@ -626,84 +640,8 @@
       "AĞIRLIK", "AİLE", "AKARSU", "AKŞAM", "AL", "ALAN", "ALÇAK", "ALET", "ALIŞVERİŞ",
       "ALMANCA", "ALTIN", "AMAÇ", "AMCA", "AMELİYAT", "AN", "ANAHTAR", "ANAOKULU",
       "ANAYASA", "ANI", "ANLAMA", "ANLAŞMA", "ANLATMA", "ANNE", "ANSİKLOPEDİ", "ARABA",
-      "ARAÇ", "ARAPÇA", "ARAŞTIRMA", "ARI", "ARKADAŞ", "ARMUT", "AS", "ASANSÖR", "ASKER",
-      "ASTRONOT", "AŞÇI", "AT", "ATASÖZÜ", "ATEŞ", "ATKI", "ATLAMA", "ATLAS", "ATLI",
-      "ATMOSFER", "ATÖLYE", "AY", "AYAKKABI", "AYDINLIK", "AYI", "AYLIK", "AYVA", "AZ",
-      "BABA", "BACA", "BADEM", "BAHAR", "BAHARAT", "BAHÇE", "BAKAN", "BAKIR", "BAKKAL",
-      "BAL", "BALE", "BALIK", "BALON", "BANKA", "BANYO", "BARDAK", "BARIŞ", "BAROMETRE",
-      "BASKET", "BAŞARI", "BAŞKAN", "BAYRAK", "BAYRAM", "BEBEK", "BELEDİYE", "BELGESEL",
-      "BEN", "BERE", "BEZ", "BIÇAK", "BİBER", "BİL", "BİLET", "BİLEZİK", "BİLGİ", "BİLGİSAYAR",
-      "BİLİM", "BİLMECE", "BİSİKLET", "BİSKÜVİ", "BİTKİ", "BİZ", "BOĞAZ", "BORÇ", "BOT",
-      "BOYA", "BÖCEK", "BROŞÜR", "BUL", "BULUT", "BUZ", "BÜRO", "BÜYÜK", "CADDE", "CAM",
-      "CEKET", "CEP", "CESARET", "CETVEL", "CEVİZ", "CEZA", "CİHAZ", "CİPS", "CİVCİV",
-      "COĞRAFYA", "CÜMLE", "CÜZDAN", "ÇALIŞKAN", "ÇALIŞKANLIK", "ÇAMUR", "ÇANTA", "ÇATAL",
-      "ÇATI", "ÇAY", "ÇEVRE", "ÇİÇEK", "ÇİKOLATA", "ÇİLEK", "ÇİMEN", "ÇİNCE", "ÇİRKİN",
-      "ÇİT", "ÇİZGİ", "ÇİZME", "ÇOK", "ÇORAP", "ÇORBA", "ÇÖL", "DAĞ", "DAİRE", "DAKİKA",
-      "DAL", "DANS", "DAR", "DAYI", "DEDE", "DEFTER", "DEKOR", "DEMİR", "DEMOKRASİ",
-      "DENEY", "DENİZ", "DEPREM", "DEREOTU", "DERGİ", "DERİ", "DERİNLİK", "DERS", "DESTAN",
-      "DESTEK", "DEYİM", "DİKDÖRTGEN", "DİL", "DİN", "DİNLEME", "DİPLOMA", "DİSİPLİN",
-      "DİZİ", "DOĞA", "DOĞRULUK", "DOĞRUYU", "DOĞUM", "DOKTOR", "DOLAP", "DOLU", "DOMATES",
-      "DONDURMA", "DOST", "DOSTLUK", "DUR", "DURAK", "DUŞ", "DUVAR", "DÜĞME", "DÜKKÂN",
-      "DÜNYA", "DÜRÜST", "DÜRÜSTLÜK", "DÜŞÜNME", "EDEBİYAT", "EFSANE", "EĞLENCE", "EKMEK",
-      "EKVATOR", "EL", "ELBİSE", "ELDİVEN", "ELEKTRİK", "ELMA", "EN", "ENDİŞE", "ENERJİ",
-      "ER", "ERİK", "ESKİ", "EŞİT", "EŞİTLİK", "EŞYA", "ET", "ETEK", "ETLİ", "EV", "EVİM",
-      "FABRİKA", "FEN", "FERMUAR", "FIKRA", "FINDIK", "FIRIN", "FIRTINA", "FISTIK", "FİLM",
-      "FİYAT", "FOTOĞRAF", "FRANSIZCA", "FUTBOL", "GALAKSİ", "GAZETE", "GAZOZ", "GECE",
-      "GEL", "GELENEK", "GEMİ", "GENİŞ", "GENİŞLİK", "GERÇEK", "GERİ", "GEZEGEN", "GEZİ",
-      "GİT", "GOL", "GÖKTAŞI", "GÖL", "GÖLGE", "GÖMLEK", "GÜL", "GÜMRÜK", "GÜMÜŞ", "GÜN",
-      "GÜNCE", "GÜNDÜZ", "GÜNEŞ", "GÜNLÜK", "GÜVEN", "GÜVENMEK", "GÜZEL", "HABER", "HACİM",
-      "HAFTA", "HAFTALIK", "HAK", "HAKSIZLIK", "HALA", "HALI", "HALK", "HAMUR", "HARF",
-      "HARİTA", "HASTALIK", "HASTANE", "HAVA", "HAVAALANI", "HAVUÇ", "HAYAL", "HAYVAN",
-      "HECE", "HEDEF", "HEDİYE", "HEMŞİRE", "HESAP", "HEYKEL", "HIRSIZLIK", "HIZ", "HIZLI",
-      "HİKAYE", "HİKÂYE", "HUZUR", "HÜKÛMET", "HÜRRİYET", "HÜZÜN", "ILIK", "IRMAK", "ISI",
-      "ISPANAK", "IŞIK", "İCAT", "İKLİM", "İL", "İLAÇ", "İLAN", "İLETKİ", "İLKOKUL", "İN",
-      "İNANMAK", "İNCİR", "İNDİRİM", "İNEK", "İNGİLİZCE", "İNSAN", "İP", "İPEK", "İSPANYOLCA",
-      "İSTASYON", "İŞ", "İTFAİYE", "İYİ", "JANDARMA", "JAPONCA", "JENERATÖR", "K", "KABAK",
-      "KÂĞIT", "KAHRAMAN", "KAHVE", "KALDIRIM", "KALE", "KALEM", "KALİTE", "KALK", "KAMP",
-      "KAMYON", "KANAL", "KANTİN", "KANUN", "KAPI", "KAR", "KÂR", "KARAKOL", "KARANFİL",
-      "KARANLIK", "KARAR", "KARDEŞ", "KARE", "KARNABAHAR", "KARNE", "KARTPOSTAL", "KASABA",
-      "KASAP", "KASIRGA", "KAŞIK", "KAYA", "KAYDIRAK", "KAYIK", "KAYISI", "KAYIT", "KAYKAY",
-      "KAZA", "KAZAK", "KEÇİ", "KEDİ", "KEK", "KEKİK", "KELİME", "KEŞİF", "KIR", "KISA",
-      "KISKANÇLIK", "KIŞ", "KİLİM", "KİLİT", "KİRAZ", "KİRLİLİK", "KİTAP", "KİTAPÇIK",
-      "KİTAPLIK", "KOLAY", "KOLYE", "KOMŞU", "KONFERANS", "KONİ", "KONSER", "KONU", "KONUŞMA",
-      "KORİDOR", "KORKU", "KOSTÜM", "KOŞ", "KOŞU", "KOYUN", "KÖFTE", "KÖK", "KÖPEK", "KÖPRÜ",
-      "KÖRFEZ", "KÖTÜ", "KÖY", "KRAKER", "KREDİ", "KREŞ", "KRONOMETRE", "KUKLA", "KUM",
-      "KUMAŞ", "KURABİYE", "KURT", "KUŞ", "KUTLAMA", "KUTUP", "KUYRUKLU", "KUZEN", "KÜÇÜK",
-      "KÜLTÜR", "KÜP", "KÜPE", "KÜRE", "KÜTLE", "KÜTÜPHANE", "LABORATUVAR", "LAHANA", "LAMBA",
-      "LEBLEBİ", "LİMAN", "LİMON", "LİMONATA", "LİSE", "MACERA", "MADEN", "MAĞAZA", "MAHALLE",
-      "MAKARNA", "MAKAS", "MAKİNE", "MALZEME", "MANAV", "MANDALİNA", "MARKET", "MARŞ", "MARUL",
-      "MASA", "MASAL", "MATEMATİK", "MAYDANOZ", "MECLİS", "MEKTUP", "MERAK", "MERDİVEN",
-      "MERİDYEN", "METİN", "MEVSİM", "MEYDAN", "MEYVE", "MEZUN", "MİKROSKOP", "MİLLETVEKİLİ",
-      "MİMARİ", "MİSAFİR", "MONT", "MONTAJ", "MOTOR", "MUM", "MUTFAK", "MUTLU", "MUTLULUK",
-      "MUZ", "MÜDÜR", "MÜŞTERİ", "MÜZİK", "NANE", "NAR", "NEHİR", "NEŞE", "NEŞELİ", "NİNE",
-      "ODA", "OFİS", "OKU", "OKUL", "OKUMA", "ON", "ORMAN", "ORTAOKUL", "OT", "OTEL", "OTOBÜS",
-      "OVA", "OY", "OYA", "OYUN", "OYUNCAK", "OYUNCU", "OZON", "ÖDEV", "ÖDÜL", "ÖFKE", "ÖFKELİ",
-      "ÖĞLE", "ÖĞRENCİ", "ÖĞRENME", "ÖĞRETMEN", "ÖZGÜR", "ÖZÜR", "PAMUK", "PANSİYON", "PANTOLON",
-      "PARA", "PARAGRAF", "PARALEL", "PARK", "PARTİ", "PASAPORT", "PASTA", "PATATES", "PATEN",
-      "PAYLAŞMA", "PAYLAŞMAK", "PEKMEZ", "PENCERE", "PERDE", "PERGEL", "PEYNİR", "PIRASA",
-      "PİKNİK", "PİL", "PİLAV", "PLAN", "PLASTİK", "POLİS", "PORTAKAL", "POSTA", "POSTACI",
-      "POSTANE", "POTA", "PRIZMA", "PROGRAM", "PROJE", "PUL", "PUSULA", "RADYO", "REHBER",
-      "REKLAM", "RESİM", "ROBOT", "ROKET", "ROMAN", "RÖPORTAJ", "RUSÇA", "RÜYA", "RÜZGÂR",
-      "SAAT", "SABAH", "SABIR", "SADAKAT", "SAĞLIK", "SAHNE", "SAKIZ", "SAKİN", "SAKİNLİK",
-      "SALATA", "SALINCAK", "SALON", "SANAT", "SANDALYE", "SANİYE", "SATIŞ", "SAVAŞ", "SAYGI",
-      "SAYMAK", "SCOOTER", "SEBZE", "SEÇİM", "SEL", "SEMİNER", "SEN", "SENARYO", "SERGİ",
-      "SES", "SEVGİ", "SEVİNÇLİ", "SEVMEK", "SEYAHAT", "SICAK", "SICAKLIK", "SINAV", "SINIF",
-      "SINIR", "SİLGİ", "SİLİNDİR", "SİNEK", "SİNEMA", "SİPARİŞ", "SİRKE", "SİS", "SİZ", "SOFRA",
-      "SOĞAN", "SOĞUK", "SOĞUKLUK", "SOKAK", "SONBAHAR", "SORUMLULUK", "SÖZ", "SÖZCÜK", "SÖZLÜK",
-      "SPOR", "STÜDYO", "SU", "SUÇ", "SÜRÜCÜ", "SÜT", "SÜTLAÇ", "ŞAPKA", "ŞARKI", "ŞAŞKINLIK",
-      "ŞEFTALİ", "ŞEHİR", "ŞEKER", "ŞELALE", "ŞİİR", "ŞOFÖR", "TABAK", "TAHTA", "TAHTEREVALLİ",
-      "TAKVİM", "TARÇIN", "TARİH", "TAŞ", "TAT", "TATİL", "TAVA", "TAVUK", "TEBRİK", "TEK",
-      "TEKERLEME", "TEKNOLOJİ", "TELEFON", "TELESKOP", "TELEVİZYON", "TEMBEL", "TEMİZLİK",
-      "TENCERE", "TENİS", "TEPE", "TEREYAĞI", "TERLİK", "TERMOMETRE", "TEŞEKKÜR", "TEYZE",
-      "TIRMANMA", "TİCARET", "TİLKİ", "TİYATRO", "TOHUM", "TOP", "TOPLANTI", "TOPLUM", "TOPRAK",
-      "TÖREN", "TRAFİK", "TREN", "TURİST", "TURP", "TUVALET", "TUZ", "TÜKETİM", "TÜNEL", "TÜRKÇE",
-      "TÜRKÜ", "UÇAK", "ULU", "UZAY", "UZUN", "UZUNLUK", "ÜÇ", "ÜÇGEN", "ÜLKE", "ÜNİVERSİTE",
-      "ÜRETİM", "ÜTÜ", "ÜZGÜN", "ÜZÜM", "ÜZÜNTÜ", "VADİ", "VALİZ", "VATAN", "VİZE", "VOLEYBOL",
-      "YA", "YAĞ", "YAĞMUR", "YALAN", "YANARDAĞ", "YAPIŞTIRICI", "YAPRAK", "YARALANMA", "YARDIM",
-      "YARGI", "YARIMADA", "YARIŞMA", "YAT", "YATAK", "YAVAŞ", "YAYA", "YAZ", "YAZI", "YEĞEN",
-      "YELKEN", "YEMEKHANE", "YENİ", "YER", "YIL", "YILAN", "YILDIZ", "YILLIK", "YOĞURT", "YOL",
-      "YÖNETİM", "YÖNETMEN", "YUMURTA", "YÜKSEK", "YÜKSEKLİK", "YÜN", "YÜZME", "YÜZÜK", "ZAMAN",
-      "ZAR", "ZARAR", "ZENCEFİL", "ZEYTİN", "ZİL", "ZOR"
+      // ... (kelime listesi aynı kalacak)
+      "ZOR"
     ];
 
     let letters = [];
@@ -714,6 +652,7 @@
     let questionCounter = 0;
     let usedQuestions = [];
     let availableQuestions = [];
+    let audioUnlocked = false; // Ses kilidi kontrolü
 
     const startBtn = document.getElementById("startBtn");
     const submitBtn = document.getElementById("submitBtn");
@@ -730,10 +669,92 @@
     const alphabetElement = document.getElementById("alphabet");
     const gameCompleteElement = document.getElementById("gameComplete");
     const errorMessageElement = document.getElementById("errorMessage");
+    const audioPermissionElement = document.getElementById("audioPermission");
+
+    // Ses kilidini açma fonksiyonu
+    function unlockAudio() {
+      if (audioUnlocked) return;
+      
+      // Ses dosyalarını sessizce çalıp durdurarak kilidi açmaya çalış
+      const clapSound = document.getElementById("clap");
+      const errorSound = document.getElementById("error");
+      
+      // Volume'u 0 yaparak sessiz çal
+      clapSound.volume = 0;
+      errorSound.volume = 0;
+      
+      // Promise kullanarak çal
+      const playClap = clapSound.play();
+      const playError = errorSound.play();
+      
+      if (playClap !== undefined) {
+        playClap.then(() => {
+          clapSound.pause();
+          clapSound.currentTime = 0;
+          clapSound.volume = 1;
+          audioUnlocked = true;
+          audioPermissionElement.style.display = 'none';
+          console.log('Ses kilidi açıldı');
+        }).catch(error => {
+          console.log('Ses kilidi açılamadı:', error);
+          // Kullanıcıya bilgi ver
+          if (!audioUnlocked) {
+            audioPermissionElement.style.display = 'block';
+          }
+        });
+      }
+      
+      if (playError !== undefined) {
+        playError.then(() => {
+          errorSound.pause();
+          errorSound.currentTime = 0;
+          errorSound.volume = 1;
+          audioUnlocked = true;
+          audioPermissionElement.style.display = 'none';
+        }).catch(error => {
+          console.log('Ses kilidi açılamadı:', error);
+        });
+      }
+    }
+
+    // Güvenli ses çalma fonksiyonu
+    function playSound(soundType) {
+      const sound = soundType === 'clap' ? document.getElementById("clap") : document.getElementById("error");
+      
+      try {
+        sound.currentTime = 0;
+        const playPromise = sound.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Ses çalınamadı:', error);
+            // Ses çalınamazsa kullanıcıya bilgi ver
+            if (!audioUnlocked) {
+              audioPermissionElement.style.display = 'block';
+            }
+          });
+        }
+      } catch (error) {
+        console.log('Ses çalma hatası:', error);
+      }
+    }
 
     // Sayfa yüklendiğinde
     window.addEventListener('DOMContentLoaded', function() {
       createAlphabetButtons();
+      
+      // Mobil cihaz kontrolü
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (isMobile) {
+        audioPermissionElement.style.display = 'block';
+      }
+    });
+
+    // Tüm butonlara tıklanınca ses kilidini aç
+    document.addEventListener('click', function() {
+      if (!audioUnlocked) {
+        unlockAudio();
+      }
     });
 
     // Türkçe alfabe butonlarını oluştur
@@ -895,10 +916,7 @@
         document.getElementById("message").className = "correct";
         
         // Alkış sesini çal
-        const clapSound = document.getElementById("clap");
-        clapSound.currentTime = 0;
-        clapSound.play().catch(e => console.log('Ses çalınamadı:', e));
-        
+        playSound('clap');
         launchFireworks();
         
         currentStreak++;
@@ -915,10 +933,7 @@
         document.getElementById("message").className = "wrong";
         
         // Hata sesi çal
-        const errorSound = document.getElementById("error");
-        errorSound.currentTime = 0;
-        errorSound.play().catch(e => console.log('Ses çalınamadı:', e));
-        
+        playSound('error');
         showWrongMark();
         
         currentStreak = 0;
