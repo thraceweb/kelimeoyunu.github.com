@@ -20,48 +20,73 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 10px;
     }
     
     .container {
-      max-width: 800px;
+      max-width: 1200px;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
-      padding: 30px;
+      padding: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       border: 8px solid #ff9ebb;
+      display: flex;
+      flex-direction: column;
+      min-height: 90vh;
     }
     
     h1 {
       color: #ff6b9d;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
       text-shadow: 2px 2px 0 #ffd1dc;
     }
     
     .subtitle {
       color: #5fa8ff;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+    
+    .game-layout {
+      display: flex;
+      flex: 1;
+      gap: 20px;
+      min-height: 500px;
+    }
+    
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+    }
+    
+    .right-panel {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      min-width: 400px;
     }
     
     .alphabet {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
+      gap: 8px;
+      margin-bottom: 20px;
       background-color: #e6f7ff;
-      padding: 20px;
+      padding: 15px;
       border-radius: 15px;
       border: 3px solid #5fa8ff;
+      flex: 1;
     }
     
     .letter-btn {
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
+      width: 45px;
+      height: 45px;
+      font-size: 1.3rem;
       font-weight: bold;
       background-color: #ffd1dc;
       border: 3px solid #ff9ebb;
@@ -82,17 +107,21 @@
     }
     
     .selected-letters {
-      font-size: 1.5rem;
-      margin: 20px 0;
+      font-size: 1.3rem;
+      margin: 15px 0;
       color: #5fa8ff;
       font-weight: bold;
       min-height: 40px;
+      background-color: #f0f8ff;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #5fa8ff;
     }
     
     button {
-      font-size: 1.3rem;
-      padding: 12px 25px;
-      margin: 10px;
+      font-size: 1.2rem;
+      padding: 12px 20px;
+      margin: 8px;
       cursor: pointer;
       border: none;
       border-radius: 15px;
@@ -104,6 +133,8 @@
       background-color: #5fa8ff;
       color: white;
       box-shadow: 0 4px 0 #3a7bd5;
+      font-size: 1.3rem;
+      padding: 15px 30px;
     }
     
     #startBtn:hover {
@@ -120,12 +151,12 @@
       background-color: #7ae582;
       color: white;
       box-shadow: 0 4px 0 #5ac763;
-      font-size: 1.5rem;
-      padding: 15px 30px;
+      font-size: 1.3rem;
+      padding: 15px 25px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 20px auto;
+      margin: 15px auto;
     }
     
     #submitBtn:hover {
@@ -142,12 +173,12 @@
       background-color: #ffb347;
       color: white;
       box-shadow: 0 4px 0 #e69500;
-      font-size: 1.5rem;
-      padding: 15px 30px;
+      font-size: 1.3rem;
+      padding: 15px 25px;
       display: none;
       align-items: center;
       justify-content: center;
-      margin: 20px auto;
+      margin: 15px auto;
     }
     
     #nextBtn:hover {
@@ -161,22 +192,24 @@
     }
     
     .game-area {
-      margin-top: 20px;
+      flex: 1;
       display: none;
+      flex-direction: column;
     }
     
     .question {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #ff6b9d;
-      margin: 20px 0;
+      margin: 15px 0;
       padding: 15px;
       background-color: #fff9fc;
       border-radius: 15px;
       border: 3px dashed #ff9ebb;
-      min-height: 80px;
+      min-height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
     }
     
     .answer-section {
@@ -184,7 +217,7 @@
       justify-content: center;
       align-items: center;
       gap: 15px;
-      margin: 20px 0;
+      margin: 15px 0;
       flex-wrap: wrap;
     }
     
@@ -195,10 +228,10 @@
     }
     
     #answer {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       padding: 12px;
       text-align: center;
-      width: 200px;
+      width: 250px;
       border: 3px solid #ff9ebb;
       border-radius: 15px;
       background-color: #fff9fc;
@@ -207,9 +240,9 @@
     #clearBtn {
       background-color: #ff6b6b;
       color: white;
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
+      width: 45px;
+      height: 45px;
+      font-size: 1.3rem;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -231,7 +264,7 @@
     .answer-letter {
       width: 40px;
       height: 40px;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       background-color: #ffd1dc;
       border: 2px solid #ff9ebb;
@@ -248,7 +281,7 @@
     
     #message {
       margin-top: 15px;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       min-height: 40px;
     }
@@ -264,7 +297,7 @@
     .stats {
       display: flex;
       justify-content: space-around;
-      margin-top: 30px;
+      margin-top: 20px;
       background-color: #e6f7ff;
       padding: 15px;
       border-radius: 15px;
@@ -277,13 +310,13 @@
     }
     
     .stat-value {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: #ff6b9d;
     }
     
     .stat-label {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #5fa8ff;
     }
     
@@ -310,13 +343,13 @@
     }
     
     .tick-icon {
-      font-size: 1.8rem;
-      margin-right: 10px;
+      font-size: 1.6rem;
+      margin-right: 8px;
     }
     
     .speaker-icon {
-      font-size: 2rem;
-      margin-right: 10px;
+      font-size: 1.8rem;
+      margin-right: 8px;
     }
     
     .sound-btn {
@@ -324,6 +357,7 @@
       color: white;
       box-shadow: 0 4px 0 #e69500;
       margin-top: 10px;
+      padding: 12px 20px;
     }
     
     .sound-btn:hover {
@@ -331,9 +365,9 @@
     }
     
     .game-complete {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #ff6b9d;
-      margin: 20px 0;
+      margin: 15px 0;
       padding: 20px;
       background-color: #fff9fc;
       border-radius: 15px;
@@ -342,7 +376,7 @@
     }
     
     .load-message {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #5fa8ff;
       margin: 10px 0;
     }
@@ -351,6 +385,107 @@
       color: #ff6b6b;
       font-weight: bold;
       margin: 10px 0;
+      font-size: 1rem;
+    }
+    
+    .question-type {
+      font-size: 1.2rem;
+      color: #5fa8ff;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    .control-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    
+    /* Mobil için responsive tasarım */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+        min-height: auto;
+      }
+      
+      .game-layout {
+        flex-direction: column;
+        min-height: auto;
+      }
+      
+      .left-panel, .right-panel {
+        min-width: auto;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .question {
+        font-size: 1.4rem;
+        min-height: 80px;
+      }
+      
+      #answer {
+        width: 200px;
+        font-size: 1.2rem;
+      }
+      
+      .letter-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
+      
+      button {
+        font-size: 1.1rem;
+        padding: 10px 15px;
+        margin: 5px;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 5px;
+      }
+      
+      .container {
+        padding: 10px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .question {
+        font-size: 1.2rem;
+        min-height: 70px;
+        padding: 10px;
+      }
+      
+      #answer {
+        width: 180px;
+        font-size: 1.1rem;
+      }
+      
+      .letter-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      
+      .answer-letter {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -362,59 +497,68 @@
     <div class="load-message" id="loadMessage">Kelime listesi yükleniyor...</div>
     <div class="error-message" id="errorMessage" style="display: none;"></div>
     
-    <div class="alphabet" id="alphabet">
-      <!-- Türkçe alfabe butonları JavaScript ile eklenecek -->
-    </div>
-    
-    <div class="selected-letters" id="selectedLetters">
-      Henüz harf seçmediniz
-    </div>
-    
-    <button id="startBtn">Oyunu Başlat</button>
-    
-    <div class="game-area" id="game">
-      <div class="question" id="question">
-        <span class="speaker-icon">🔊</span>
-        <span id="questionText">Sesi dinleyin ve cevabı yazın</span>
-      </div>
-      
-      <div class="answer-section">
-        <div class="input-container">
-          <input id="answer" placeholder="Cevabı buraya yaz">
-          <button id="clearBtn">⌫</button>
+    <div class="game-layout">
+      <div class="left-panel">
+        <div class="alphabet" id="alphabet">
+          <!-- Türkçe alfabe butonları JavaScript ile eklenecek -->
         </div>
-        <div class="selected-letters-answer" id="selectedLettersAnswer">
-          <!-- Seçili harfler burada gösterilecek -->
+        
+        <div class="selected-letters" id="selectedLetters">
+          Henüz harf seçmediniz
         </div>
+        
+        <button id="startBtn">Oyunu Başlat</button>
       </div>
       
-      <button id="submitBtn">
-        <span class="tick-icon">✓</span> Cevapla
-      </button>
-      
-      <button id="nextBtn">
-        <span class="tick-icon">➡️</span> Sonraki Soru
-      </button>
-      
-      <button class="sound-btn" id="repeatBtn">
-        <span class="speaker-icon">🔊</span> Soruyu Tekrarla
-      </button>
-      
-      <div id="message"></div>
-      
-      <div class="game-complete" id="gameComplete">
-        🎉 Tebrikler! Tüm soruları tamamladınız! 🎉
-      </div>
-    </div>
-    
-    <div class="stats">
-      <div class="stat-box">
-        <div class="stat-value" id="currentStreak">0</div>
-        <div class="stat-label">Doğru Serisi</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-value" id="longestStreak">0</div>
-        <div class="stat-label">En Uzun Seri</div>
+      <div class="right-panel">
+        <div class="game-area" id="game">
+          <div class="question-type" id="questionType"></div>
+          <div class="question" id="question">
+            <span class="speaker-icon">🔊</span>
+            <span id="questionText">Sesi dinleyin ve cevabı yazın</span>
+          </div>
+          
+          <div class="answer-section">
+            <div class="input-container">
+              <input id="answer" placeholder="Cevabı buraya yaz">
+              <button id="clearBtn">⌫</button>
+            </div>
+            <div class="selected-letters-answer" id="selectedLettersAnswer">
+              <!-- Seçili harfler burada gösterilecek -->
+            </div>
+          </div>
+          
+          <button id="submitBtn">
+            <span class="tick-icon">✓</span> Cevapla
+          </button>
+          
+          <button id="nextBtn">
+            <span class="tick-icon">➡️</span> Sonraki Soru
+          </button>
+          
+          <div class="control-buttons">
+            <button class="sound-btn" id="repeatBtn">
+              <span class="speaker-icon">🔊</span> Soruyu Tekrarla
+            </button>
+          </div>
+          
+          <div id="message"></div>
+          
+          <div class="game-complete" id="gameComplete">
+            🎉 Tebrikler! Tüm soruları tamamlandı! 🎉
+          </div>
+        </div>
+        
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-value" id="currentStreak">0</div>
+            <div class="stat-label">Doğru Serisi</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="longestStreak">0</div>
+            <div class="stat-label">En Uzun Seri</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -453,6 +597,7 @@
     const clearBtn = document.getElementById("clearBtn");
     const answerInput = document.getElementById("answer");
     const questionText = document.getElementById("questionText");
+    const questionType = document.getElementById("questionType");
     const selectedLettersElement = document.getElementById("selectedLetters");
     const selectedLettersAnswerElement = document.getElementById("selectedLettersAnswer");
     const currentStreakElement = document.getElementById("currentStreak");
@@ -469,22 +614,10 @@
       
       clapAudio.addEventListener('error', () => {
         console.error('Alkış ses dosyası yüklenemedi');
-        errorMessageElement.textContent = 'Alkış ses dosyası yüklenemedi. Ses efektleri çalışmayabilir.';
-        errorMessageElement.style.display = 'block';
       });
       
       errorAudio.addEventListener('error', () => {
         console.error('Hata ses dosyası yüklenemedi');
-        errorMessageElement.textContent = 'Hata ses dosyası yüklenemedi. Ses efektleri çalışmayabilir.';
-        errorMessageElement.style.display = 'block';
-      });
-      
-      clapAudio.addEventListener('canplaythrough', () => {
-        console.log('Alkış ses dosyası başarıyla yüklendi');
-      });
-      
-      errorAudio.addEventListener('canplaythrough', () => {
-        console.log('Hata ses dosyası başarıyla yüklendi');
       });
     }
 
@@ -515,8 +648,6 @@
       } catch (error) {
         console.error('Kelime listesi yüklenirken hata oluştu:', error);
         loadMessageElement.textContent = 'Kelime listesi yüklenemedi. Varsayılan liste kullanılıyor.';
-        errorMessageElement.textContent = `Kelime listesi yüklenirken hata: ${error.message}`;
-        errorMessageElement.style.display = 'block';
         
         // Geliştirilmiş varsayılan kelime listesi (yedek)
         turkceKelimeler = [
@@ -527,16 +658,6 @@
           "YEM", "MEME", "DEDE", "BABA", "ANNE", "BEBEK", "TOP", "POT", "BOT", "NOT"
         ];
       }
-    }
-
-    // Tarayıcı desteğini kontrol et
-    function checkBrowserSupport() {
-      if (!('speechSynthesis' in window)) {
-        errorMessageElement.textContent = 'Tarayıcınız ses sentezleme özelliğini desteklemiyor. Sesli sorular çalışmayacak.';
-        errorMessageElement.style.display = 'block';
-        return false;
-      }
-      return true;
     }
 
     // Türkçe alfabe butonlarını oluştur
@@ -600,7 +721,7 @@
         return;
       }
       
-      document.getElementById("game").style.display = "block";
+      document.getElementById("game").style.display = "flex";
       currentStreak = 0;
       questionCounter = 0;
       usedQuestions = [];
@@ -663,6 +784,7 @@
         submitBtn.style.display = 'none';
         nextBtn.style.display = 'none';
         questionText.textContent = "Tüm sorular tamamlandı!";
+        questionType.textContent = "";
         return;
       }
       
@@ -696,20 +818,27 @@
       mode = selectedQuestion.type;
       target = selectedQuestion.value;
 
-      if (mode === "harf") {
-        speak(`Şu harfi yaz: ${target}`, true);
-        questionText.textContent = "Bir harf yazmanız isteniyor...";
-      } else {
-        speak(`Bu kelimeyi yaz: ${target}`, false);
-        questionText.textContent = "Bir kelime yazmanız isteniyor...";
-      }
-
+      updateQuestionDisplay();
+      
       answerInput.value = "";
       document.getElementById("message").textContent = "";
       answerInput.focus();
       isWaitingForNextRound = false;
       submitBtn.style.display = 'flex';
       nextBtn.style.display = 'none';
+    }
+
+    // Soru görüntüsünü güncelle
+    function updateQuestionDisplay() {
+      if (mode === "harf") {
+        speak(`Şu harfi yaz: ${target}`, true);
+        questionText.textContent = "Bir harf yazmanız isteniyor...";
+        questionType.textContent = "Harf Sorusu";
+      } else {
+        speak(`Bu kelimeyi yaz: ${target}`, false);
+        questionText.textContent = "Bir kelime yazmanız isteniyor...";
+        questionType.textContent = "Kelime Sorusu";
+      }
     }
 
     // Cevabı kontrol et
@@ -779,17 +908,15 @@
 
     // Soruyu tekrarla
     function repeatQuestion() {
-      if (mode === "harf") {
-        speak(`Şu harfi yaz: ${target}`, true);
-      } else {
-        speak(`Bu kelimeyi yaz: ${target}`, false);
-      }
+      updateQuestionDisplay();
     }
 
     // Türkçe seslendirme (yavaş ve tane tane)
     function speak(text, isLetter) {
       // Tarayıcı desteği kontrolü
-      if (!checkBrowserSupport()) {
+      if (!('speechSynthesis' in window)) {
+        errorMessageElement.textContent = 'Tarayıcınız ses sentezleme özelliğini desteklemiyor.';
+        errorMessageElement.style.display = 'block';
         return;
       }
       
@@ -811,6 +938,8 @@
       
       utter.onerror = (event) => {
         console.error('Seslendirme hatası:', event.error);
+        errorMessageElement.textContent = 'Seslendirme hatası. Soruyu tekrarla butonunu kullanın.';
+        errorMessageElement.style.display = 'block';
       };
       
       window.speechSynthesis.speak(utter);
@@ -839,15 +968,15 @@
       canvas.height = window.innerHeight;
 
       let particles = [];
-      for (let i = 0; i < 80; i++) { // Partikül sayısını azalttık
+      for (let i = 0; i < 80; i++) {
         particles.push({
           x: canvas.width/2,
           y: canvas.height/2,
           angle: Math.random() * 2 * Math.PI,
-          speed: Math.random() * 4 + 2, // Hızı biraz azalttık
+          speed: Math.random() * 4 + 2,
           radius: Math.random() * 2 + 2,
           color: `hsl(${Math.random()*360},100%,50%)`,
-          life: 80 // Ömrü kısalttık
+          life: 80
         });
       }
 
@@ -888,7 +1017,6 @@
     window.addEventListener('DOMContentLoaded', async function() {
       createAlphabetButtons();
       checkAudioFiles();
-      checkBrowserSupport();
       await loadWordList();
     });
   </script>
