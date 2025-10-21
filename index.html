@@ -346,6 +346,12 @@
       color: #5fa8ff;
       margin: 10px 0;
     }
+    
+    .error-message {
+      color: #ff6b6b;
+      font-weight: bold;
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
@@ -354,6 +360,7 @@
     <p class="subtitle">Harfleri seç, kelimeleri yaz!</p>
     
     <div class="load-message" id="loadMessage">Kelime listesi yükleniyor...</div>
+    <div class="error-message" id="errorMessage" style="display: none;"></div>
     
     <div class="alphabet" id="alphabet">
       <!-- Türkçe alfabe butonları JavaScript ile eklenecek -->
@@ -415,8 +422,8 @@
   <div id="wrongMark">❌</div>
 
   <!-- Sesler -->
-  <audio id="clap" src="https://www.soundjay.com/human/applause-01.mp3"></audio>
-  <audio id="error" src="https://www.soundjay.com/misc/sounds/hohner-melodica-2.mp3"></audio>
+  <audio id="clap" src="Sound/applause.mp3" preload="auto"></audio>
+  <audio id="error" src="Sound/wrong.mp3" preload="auto"></audio>
 
   <canvas class="fireworks"></canvas>
 
@@ -453,11 +460,43 @@
     const alphabetElement = document.getElementById("alphabet");
     const gameCompleteElement = document.getElementById("gameComplete");
     const loadMessageElement = document.getElementById("loadMessage");
+    const errorMessageElement = document.getElementById("errorMessage");
+
+    // Ses dosyalarını kontrol et
+    function checkAudioFiles() {
+      const clapAudio = document.getElementById('clap');
+      const errorAudio = document.getElementById('error');
+      
+      clapAudio.addEventListener('error', () => {
+        console.error('Alkış ses dosyası yüklenemedi');
+        errorMessageElement.textContent = 'Alkış ses dosyası yüklenemedi. Ses efektleri çalışmayabilir.';
+        errorMessageElement.style.display = 'block';
+      });
+      
+      errorAudio.addEventListener('error', () => {
+        console.error('Hata ses dosyası yüklenemedi');
+        errorMessageElement.textContent = 'Hata ses dosyası yüklenemedi. Ses efektleri çalışmayabilir.';
+        errorMessageElement.style.display = 'block';
+      });
+      
+      clapAudio.addEventListener('canplaythrough', () => {
+        console.log('Alkış ses dosyası başarıyla yüklendi');
+      });
+      
+      errorAudio.addEventListener('canplaythrough', () => {
+        console.log('Hata ses dosyası başarıyla yüklendi');
+      });
+    }
 
     // Kelime listesini yükle
     async function loadWordList() {
       try {
         const response = await fetch('kelime-listesi.html');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP hatası! Durum: ${response.status}`);
+        }
+        
         const html = await response.text();
         
         // HTML'den kelime listesini çıkar
@@ -467,7 +506,7 @@
         
         if (wordListElement) {
           const wordsText = wordListElement.textContent;
-          turkceKelimeler = wordsText.split(',').map(word => word.trim().toUpperCase());
+          turkceKelimeler = wordsText.split(',').map(word => word.trim().toUpperCase()).filter(word => word.length > 0);
           loadMessageElement.textContent = `Kelime listesi yüklendi! (${turkceKelimeler.length} kelime)`;
           console.log('Kelime listesi başarıyla yüklendi:', turkceKelimeler.length, 'kelime');
         } else {
@@ -476,13 +515,28 @@
       } catch (error) {
         console.error('Kelime listesi yüklenirken hata oluştu:', error);
         loadMessageElement.textContent = 'Kelime listesi yüklenemedi. Varsayılan liste kullanılıyor.';
+        errorMessageElement.textContent = `Kelime listesi yüklenirken hata: ${error.message}`;
+        errorMessageElement.style.display = 'block';
         
-        // Varsayılan kelime listesi (yedek)
+        // Geliştirilmiş varsayılan kelime listesi (yedek)
         turkceKelimeler = [
           "AN", "ANA", "EN", "NE", "EL", "AL", "ANNE", "ELE", "ET", "OT", "ON",
-          "AT", "TANE", "TEN", "NET", "TEL", "LALE", "NANE", "ALET", "ELMA", "KALE"
+          "AT", "TANE", "TEN", "NET", "TEL", "LALE", "NANE", "ALET", "ELMA", "KALE",
+          "KOL", "OK", "KO", "AK", "KA", "LA", "LE", "TE", "TA", "NA", "ME", "MA",
+          "SU", "US", "SUS", "MASA", "SES", "ASA", "SİS", "İNEK", "KEK", "KİM", "KEM",
+          "YEM", "MEME", "DEDE", "BABA", "ANNE", "BEBEK", "TOP", "POT", "BOT", "NOT"
         ];
       }
+    }
+
+    // Tarayıcı desteğini kontrol et
+    function checkBrowserSupport() {
+      if (!('speechSynthesis' in window)) {
+        errorMessageElement.textContent = 'Tarayıcınız ses sentezleme özelliğini desteklemiyor. Sesli sorular çalışmayacak.';
+        errorMessageElement.style.display = 'block';
+        return false;
+      }
+      return true;
     }
 
     // Türkçe alfabe butonlarını oluştur
@@ -554,6 +608,7 @@
       isWaitingForNextRound = false;
       nextBtn.style.display = 'none';
       gameCompleteElement.style.display = 'none';
+      errorMessageElement.style.display = 'none';
       
       // Kullanılabilir soruları hazırla
       prepareAvailableQuestions();
@@ -586,6 +641,8 @@
       
       // Soruları karıştır
       availableQuestions = shuffleArray(availableQuestions);
+      
+      console.log(`Hazırlanan sorular: ${availableQuestions.length} adet`);
     }
 
     // Dizi karıştırma
@@ -670,7 +727,12 @@
       if (answer === target) {
         document.getElementById("message").textContent = "Doğru";
         document.getElementById("message").className = "correct";
-        document.getElementById("clap").play();
+        
+        // Alkış sesini çal
+        const clapSound = document.getElementById("clap");
+        clapSound.currentTime = 0;
+        clapSound.play().catch(e => console.log('Ses çalınamadı:', e));
+        
         launchFireworks();
         
         currentStreak++;
@@ -686,9 +748,10 @@
         document.getElementById("message").textContent = "Yanlış";
         document.getElementById("message").className = "wrong";
         
-        // Korna sesi çal
+        // Hata sesi çal
         const errorSound = document.getElementById("error");
-        errorSound.play();
+        errorSound.currentTime = 0;
+        errorSound.play().catch(e => console.log('Ses çalınamadı:', e));
         
         showWrongMark();
         
@@ -725,6 +788,11 @@
 
     // Türkçe seslendirme (yavaş ve tane tane)
     function speak(text, isLetter) {
+      // Tarayıcı desteği kontrolü
+      if (!checkBrowserSupport()) {
+        return;
+      }
+      
       // Önceki seslendirmeyi durdur
       window.speechSynthesis.cancel();
       
@@ -740,6 +808,10 @@
         utter.rate = 0.7;
         utter.pitch = 1;
       }
+      
+      utter.onerror = (event) => {
+        console.error('Seslendirme hatası:', event.error);
+      };
       
       window.speechSynthesis.speak(utter);
     }
@@ -767,15 +839,15 @@
       canvas.height = window.innerHeight;
 
       let particles = [];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 80; i++) { // Partikül sayısını azalttık
         particles.push({
           x: canvas.width/2,
           y: canvas.height/2,
           angle: Math.random() * 2 * Math.PI,
-          speed: Math.random() * 5 + 2,
-          radius: Math.random() * 3 + 2,
+          speed: Math.random() * 4 + 2, // Hızı biraz azalttık
+          radius: Math.random() * 2 + 2,
           color: `hsl(${Math.random()*360},100%,50%)`,
-          life: 100
+          life: 80 // Ömrü kısalttık
         });
       }
 
@@ -815,6 +887,8 @@
     // Sayfa yüklendiğinde alfabe butonlarını oluştur ve kelime listesini yükle
     window.addEventListener('DOMContentLoaded', async function() {
       createAlphabetButtons();
+      checkAudioFiles();
+      checkBrowserSupport();
       await loadWordList();
     });
   </script>
