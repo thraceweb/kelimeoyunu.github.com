@@ -21,6 +21,7 @@
       justify-content: flex-start;
       align-items: center;
       padding: 20px;
+      /* overflow: hidden kaldırıldı - sayfa kaydırılabilir olacak */
     }
     
     .container {
@@ -34,6 +35,7 @@
       display: flex;
       flex-direction: column;
       margin: 20px auto;
+      /* min-height ekleyerek içerik az olsa bile container'ın yeterli yüksekliği olmasını sağlıyoruz */
       min-height: 600px;
     }
     
@@ -81,6 +83,7 @@
       padding: 20px;
       border-radius: 15px;
       border: 3px solid #5fa8ff;
+      /* flex: 1 kaldırıldı - içerik kadar yer kaplasın */
     }
     
     .letter-btn {
@@ -414,16 +417,6 @@
       font-size: 1.2rem;
     }
     
-    .audio-permission {
-      background-color: #fff3cd;
-      border: 2px solid #ffeaa7;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px 0;
-      font-size: 1.2rem;
-      color: #856404;
-    }
-    
     .control-buttons {
       display: flex;
       justify-content: center;
@@ -544,11 +537,6 @@
     
     <div class="error-message" id="errorMessage" style="display: none;"></div>
     
-    <!-- Ses izni uyarısı -->
-    <div class="audio-permission" id="audioPermission" style="display: none;">
-      <strong>📢 Ses Uyarısı:</strong> Cep telefonunda seslerin çalışması için lütfen önce herhangi bir butona tıklayın. Tarayıcılar ses çalmak için kullanıcı etkileşimi gerektirir.
-    </div>
-    
     <div class="game-layout">
       <div class="left-panel">
         <div class="alphabet" id="alphabet">
@@ -640,7 +628,7 @@
       "AĞIRLIK", "AİLE", "AKARSU", "AKŞAM", "AL", "ALAN", "ALÇAK", "ALET", "ALIŞVERİŞ",
       "ALMANCA", "ALTIN", "AMAÇ", "AMCA", "AMELİYAT", "AN", "ANAHTAR", "ANAOKULU",
       "ANAYASA", "ANI", "ANLAMA", "ANLAŞMA", "ANLATMA", "ANNE", "ANSİKLOPEDİ", "ARABA",
-      // ... (kelime listesi aynı kalacak)
+      // ... (kelime listesi aynı kalacak, kısaltıyorum)
       "ZOR"
     ];
 
@@ -652,7 +640,6 @@
     let questionCounter = 0;
     let usedQuestions = [];
     let availableQuestions = [];
-    let audioUnlocked = false; // Ses kilidi kontrolü
 
     const startBtn = document.getElementById("startBtn");
     const submitBtn = document.getElementById("submitBtn");
@@ -669,92 +656,10 @@
     const alphabetElement = document.getElementById("alphabet");
     const gameCompleteElement = document.getElementById("gameComplete");
     const errorMessageElement = document.getElementById("errorMessage");
-    const audioPermissionElement = document.getElementById("audioPermission");
-
-    // Ses kilidini açma fonksiyonu
-    function unlockAudio() {
-      if (audioUnlocked) return;
-      
-      // Ses dosyalarını sessizce çalıp durdurarak kilidi açmaya çalış
-      const clapSound = document.getElementById("clap");
-      const errorSound = document.getElementById("error");
-      
-      // Volume'u 0 yaparak sessiz çal
-      clapSound.volume = 0;
-      errorSound.volume = 0;
-      
-      // Promise kullanarak çal
-      const playClap = clapSound.play();
-      const playError = errorSound.play();
-      
-      if (playClap !== undefined) {
-        playClap.then(() => {
-          clapSound.pause();
-          clapSound.currentTime = 0;
-          clapSound.volume = 1;
-          audioUnlocked = true;
-          audioPermissionElement.style.display = 'none';
-          console.log('Ses kilidi açıldı');
-        }).catch(error => {
-          console.log('Ses kilidi açılamadı:', error);
-          // Kullanıcıya bilgi ver
-          if (!audioUnlocked) {
-            audioPermissionElement.style.display = 'block';
-          }
-        });
-      }
-      
-      if (playError !== undefined) {
-        playError.then(() => {
-          errorSound.pause();
-          errorSound.currentTime = 0;
-          errorSound.volume = 1;
-          audioUnlocked = true;
-          audioPermissionElement.style.display = 'none';
-        }).catch(error => {
-          console.log('Ses kilidi açılamadı:', error);
-        });
-      }
-    }
-
-    // Güvenli ses çalma fonksiyonu
-    function playSound(soundType) {
-      const sound = soundType === 'clap' ? document.getElementById("clap") : document.getElementById("error");
-      
-      try {
-        sound.currentTime = 0;
-        const playPromise = sound.play();
-        
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.log('Ses çalınamadı:', error);
-            // Ses çalınamazsa kullanıcıya bilgi ver
-            if (!audioUnlocked) {
-              audioPermissionElement.style.display = 'block';
-            }
-          });
-        }
-      } catch (error) {
-        console.log('Ses çalma hatası:', error);
-      }
-    }
 
     // Sayfa yüklendiğinde
     window.addEventListener('DOMContentLoaded', function() {
       createAlphabetButtons();
-      
-      // Mobil cihaz kontrolü
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (isMobile) {
-        audioPermissionElement.style.display = 'block';
-      }
-    });
-
-    // Tüm butonlara tıklanınca ses kilidini aç
-    document.addEventListener('click', function() {
-      if (!audioUnlocked) {
-        unlockAudio();
-      }
     });
 
     // Türkçe alfabe butonlarını oluştur
@@ -916,7 +821,10 @@
         document.getElementById("message").className = "correct";
         
         // Alkış sesini çal
-        playSound('clap');
+        const clapSound = document.getElementById("clap");
+        clapSound.currentTime = 0;
+        clapSound.play().catch(e => console.log('Ses çalınamadı:', e));
+        
         launchFireworks();
         
         currentStreak++;
@@ -933,7 +841,10 @@
         document.getElementById("message").className = "wrong";
         
         // Hata sesi çal
-        playSound('error');
+        const errorSound = document.getElementById("error");
+        errorSound.currentTime = 0;
+        errorSound.play().catch(e => console.log('Ses çalınamadı:', e));
+        
         showWrongMark();
         
         currentStreak = 0;
